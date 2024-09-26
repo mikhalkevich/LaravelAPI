@@ -20,4 +20,13 @@ class Product extends Model
     public function catalogs(){
         return $this->belongsToMany(Catalog::class);
     }
+    public function scopePicture($query){
+        return $query->whereNotNull('picture');
+    }
+    public function scopeOne($query){
+        return $query->where('price', '>=', 200);
+    }
+    public function scopeTwo($query){
+        return $query->where('price', '<=', 300);
+    }
 }

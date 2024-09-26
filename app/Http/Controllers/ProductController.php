@@ -77,4 +77,8 @@ class ProductController extends Controller
         $product->catalogs()->detach([$request->catalog_id]);
         return new ProductResource($product);
     }
+    public function price(){
+        $products_scope = Product::one()->two()->orderBy('id', 'DESC')->get();
+        return ProductResource::collection($products_scope);
+    }
 }

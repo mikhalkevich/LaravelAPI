@@ -22,6 +22,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('profile', [Controllers\AuthApiController::class, 'profile']);
     Route::get('logout', [Controllers\AuthApiController::class, 'logout']);
 });
+Route::get('price', [Controllers\ProductController::class, 'price']);
 Route::post('register', [Controllers\AuthApiController::class, 'register']);
 Route::post('login', [Controllers\AuthApiController::class, 'login']);
 
