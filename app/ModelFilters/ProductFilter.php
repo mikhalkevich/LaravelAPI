@@ -17,6 +17,7 @@ class ProductFilter extends ModelFilter
     {
         $this->where('name', 'LIKE', '%' . $value . '%');
     }
+    //filter description for Product
     public function description($value)
     {
         $this->where(function ($query) use ($value){
