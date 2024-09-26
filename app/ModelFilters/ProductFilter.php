@@ -24,4 +24,9 @@ class ProductFilter extends ModelFilter
             $query->where('description', 'LIKE', '%' . $value . '%')->orWhere('description_short','LIKE', '%' . $value . '%');
         });
     }
+    public function picture($value = null){
+        if($value){
+            $this->whereNotNull('picture');
+        }
+    }
 }
