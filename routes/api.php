@@ -29,5 +29,6 @@ Route::post('login', [Controllers\AuthApiController::class, 'login']);
 Route::resource('/users', Controllers\UserApiController::class);
 Route::resource('/catalogs', Controllers\CatalogController::class);
 Route::resource('/products', Controllers\ProductController::class);
+Route::post('/product/{product}/add_picture', [Controllers\ProductController::class, 'postPicture']);
 Route::post('/products/{product}/add_catalog', [Controllers\ProductController::class, 'addCatalog']);
 Route::delete('/products/{product}/detach_catalog', [Controllers\ProductController::class, 'detachCatalog']);

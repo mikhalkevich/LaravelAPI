@@ -30,8 +30,8 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-       $product = Product::create($request->all());
-       return new ProductResource($product);
+        $product = Product::create($request->all());
+        return new ProductResource($product);
     }
 
     /**
@@ -39,8 +39,8 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-       $product = Product::find($id);
-       return new ProductResource($product);
+        $product = Product::find($id);
+        return new ProductResource($product);
     }
 
     /**
@@ -67,18 +67,30 @@ class ProductController extends Controller
         //
     }
 
-    public function addCatalog(Product $product, Request $request){
-        abort_if(!$request->catalog_id, '401','catalog_id is empty');
+    public function addCatalog(Product $product, Request $request)
+    {
+        abort_if(!$request->catalog_id, '401', 'catalog_id is empty');
         $product->catalogs()->syncWithoutDetaching([$request->catalog_id]);
         return new ProductResource($product);
     }
-    public function detachCatalog(Product $product, Request $request){
-        abort_if(!$request->catalog_id, '401','catalog_id is empty');
+
+    public function detachCatalog(Product $product, Request $request)
+    {
+        abort_if(!$request->catalog_id, '401', 'catalog_id is empty');
         $product->catalogs()->detach([$request->catalog_id]);
         return new ProductResource($product);
     }
-    public function price(){
+
+    public function price()
+    {
         $products_scope = Product::one()->two()->orderBy('id', 'DESC')->get();
         return ProductResource::collection($products_scope);
+    }
+
+    public function postPicture(Product $product, Request $request)
+    {
+        abort_if(!$request->hasFile('picture'), '401', 'picture is empty');
+        $product->addMedia($request->file('picture'))->toMediaCollection('default');
+        return new ProductResource($product);
     }
 }
